@@ -1,0 +1,10 @@
+# Local credentials (keep the secret-free template).
+.env
+.env.*
+!.env.example
+
+# Local Python environment and generated caches.
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
