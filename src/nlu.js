@@ -7,13 +7,20 @@ export function recognize(text) {
   if (/^(жоқ|жок|нет|бас тартамын|отмена|қоспа|не добавляй)$/u.test(t)) return { intent: 'cancel' };
   const qty = t.match(/(?:^|\s)(\d+)\s*(?:дана|шт(?:ук[аи]?)?)(?:\s|$)/u);
   const quantity = qty ? Number(qty[1]) : null;
-  const productId = t.match(/(?:id|артикул)\s*[:#]?\s*(\d+)/u)?.[1];
-  const entities = { quantity, productId: productId ? Number(productId) : null };
+  const productId = t.match(/(?:^|\s)id\s*[:#]?\s*(\d+)/u)?.[1];
+  const sku = t.match(/(?:артикул|sku)\s*[:#]?\s*([\p{L}\d._-]+)/u)?.[1];
+  const entities = { quantity, productId: productId ? Number(productId) : null, sku: sku ?? null };
   if (/себетке өт|себетті аш|рәсімде|оформить|открой корзину|перейти.*корзин/u.test(t)) return { intent: 'checkout', ...entities };
-  if (/төлем|жеткізу|минимал|мин\.? партия|ең аз партия|оплат|доставк/u.test(t)) return { intent: 'purchase_terms', ...entities };
+  if (/төлем|жеткізу|минимал|мин\.? партия|ең аз партия|оплат|доставк|шарттар|условия покупки/u.test(t)) {
+    const terms = [];
+    if (/төлем|оплат/u.test(t)) terms.push('payment');
+    if (/жеткізу|доставк/u.test(t)) terms.push('delivery');
+    if (/минимал|мин\.? партия|ең аз партия/u.test(t)) terms.push('minimum_order');
+    return { intent: 'purchase_terms', terms: terms.length ? terms : ['payment', 'delivery', 'minimum_order'], ...entities };
+  }
   if (/аналог|балама|ұқсас|альтернатив/u.test(t)) return { intent: 'alternatives', ...entities };
-  if (/сертификат|сипаттама|характеристик|баға|бағасы|цена|қанша тұрады|қалдық|остаток|кернеу|вольт|қуат|мощност/u.test(t)) {
-    const field = /сертификат/u.test(t) ? 'certificate_url' : /баға|цена|тұрады/u.test(t) ? 'price' : /қалдық|остаток/u.test(t) ? 'stock' : /кернеу|вольт/u.test(t) ? 'voltage' : /қуат|мощност/u.test(t) ? 'power' : 'attributes';
+  if (/сертификат|сипаттама|характеристик|описани|баға|бағасы|цена|қанша тұрады|қалдық|остаток|кернеу|вольт|қуат|мощност|наличи|қолда бар/u.test(t)) {
+    const field = /сертификат/u.test(t) ? 'certificate_url' : /баға|цена|тұрады/u.test(t) ? 'price' : /қалдық|остаток/u.test(t) ? (/қойма|склад/u.test(t) ? 'warehouse_stocks' : 'stock') : /наличи|қолда бар/u.test(t) ? 'availability' : /кернеу|вольт/u.test(t) ? 'voltage' : /қуат|мощност/u.test(t) ? 'power' : /описани/u.test(t) ? 'description' : /сипаттама/u.test(t) ? 'details' : 'attributes';
     return { intent: 'product_info', field, ...entities };
   }
   if (/себетке қос|добав.*корзин|дана.*керек|шт.*нуж|одан.*қос|қосшы/u.test(t) || (quantity !== null && /керек|нуж|қос|добав/u.test(t))) return { intent: 'cart_request', ...entities };
