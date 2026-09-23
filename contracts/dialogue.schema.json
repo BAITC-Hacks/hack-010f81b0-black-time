@@ -1,0 +1,559 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/ekt-ai/dialogue.schema.json",
+  "title": "EKT AI boundary contracts v2",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/userEvent"
+    },
+    {
+      "$ref": "#/$defs/serverEvent"
+    },
+    {
+      "$ref": "#/$defs/request"
+    },
+    {
+      "$ref": "#/$defs/reply"
+    }
+  ],
+  "$defs": {
+    "product": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "attributes": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": {
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        },
+        "price": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "currency": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stock": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "certificate_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sku": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "availability": {
+          "enum": [
+            "available",
+            "unavailable",
+            "unknown",
+            null
+          ]
+        },
+        "warehouse_stocks": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/$defs/warehouseStock"
+          }
+        }
+      }
+    },
+    "userEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "text"
+      ],
+      "properties": {
+        "type": {
+          "const": "user"
+        },
+        "text": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "locale": {
+          "enum": [
+            "kk",
+            "ru"
+          ]
+        },
+        "attachments": {
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "$ref": "#/$defs/attachment"
+          }
+        }
+      }
+    },
+    "serverEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "action_result"
+      ],
+      "properties": {
+        "type": {
+          "const": "server"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/product"
+          }
+        },
+        "purchase_terms": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "payment": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "delivery": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "minimum_order": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "action_result": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "request_id",
+            "action",
+            "status"
+          ],
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "action": {
+              "enum": [
+                "search",
+                "get_product_info",
+                "get_alternatives",
+                "get_purchase_terms",
+                "check_stock",
+                "add_to_cart"
+              ]
+            },
+            "status": {
+              "enum": [
+                "ok",
+                "insufficient_stock",
+                "error"
+              ]
+            },
+            "product_id": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "quantity": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "available_qty": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "action": {
+                    "enum": [
+                      "check_stock",
+                      "add_to_cart"
+                    ]
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "product_id",
+                  "quantity"
+                ]
+              },
+              "else": {
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "ok",
+                      "error"
+                    ]
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "insufficient_stock"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "available_qty"
+                ]
+              }
+            }
+          ]
+        },
+        "links": {
+          "$ref": "#/$defs/links"
+        }
+      }
+    },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request_id",
+        "action"
+      ],
+      "properties": {
+        "request_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "enum": [
+            "search",
+            "get_product_info",
+            "get_alternatives",
+            "get_purchase_terms",
+            "check_stock",
+            "add_to_cart"
+          ]
+        },
+        "query": {
+          "type": "string"
+        },
+        "product_id": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "quantity": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "confirmed": {
+          "const": true
+        },
+        "field": {
+          "enum": [
+            "attributes",
+            "price",
+            "stock",
+            "certificate_url",
+            "voltage",
+            "power",
+            "description",
+            "availability",
+            "warehouse_stocks",
+            "details"
+          ]
+        },
+        "terms": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "payment",
+              "delivery",
+              "minimum_order"
+            ]
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "search"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "query"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "enum": [
+                  "get_product_info",
+                  "check_stock",
+                  "add_to_cart"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "product_id"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "get_product_info"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "field"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "enum": [
+                  "check_stock",
+                  "add_to_cart"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "quantity",
+              "confirmed"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "get_alternatives"
+              }
+            }
+          },
+          "then": {
+            "oneOf": [
+              {
+                "required": [
+                  "product_id"
+                ],
+                "not": {
+                  "required": [
+                    "query"
+                  ]
+                }
+              },
+              {
+                "required": [
+                  "query"
+                ],
+                "not": {
+                  "required": [
+                    "product_id"
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "get_purchase_terms"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "terms"
+            ]
+          }
+        }
+      ]
+    },
+    "reply": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "message",
+        "cards",
+        "locale"
+      ],
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/product"
+          }
+        },
+        "handoff": {
+          "type": "boolean"
+        },
+        "navigation": {
+          "const": "cart"
+        },
+        "locale": {
+          "enum": [
+            "kk",
+            "ru"
+          ]
+        },
+        "links": {
+          "$ref": "#/$defs/links"
+        },
+        "attachment_status": {
+          "enum": [
+            "requires_extraction",
+            "unsupported"
+          ]
+        }
+      }
+    },
+    "warehouseStock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "warehouse_id",
+        "quantity"
+      ],
+      "properties": {
+        "warehouse_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "quantity": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
+    },
+    "links": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cart_url": {
+          "type": "string",
+          "pattern": "^https://[^\\s]+$"
+        },
+        "checkout_url": {
+          "type": "string",
+          "pattern": "^https://[^\\s]+$"
+        }
+      }
+    },
+    "attachment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "mime_type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string"
+        },
+        "mime_type": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
