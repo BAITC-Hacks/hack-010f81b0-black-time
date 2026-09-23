@@ -17,6 +17,29 @@
     @media(max-width:700px){body{background:#fff}.app{display:block;min-height:100dvh}.sidebar,.topbar,.page-heading,.right-rail{display:none}.main{padding:0;max-width:none}.chat{height:100dvh;min-height:0;max-height:none;border:0;border-radius:0;box-shadow:none;padding-top:env(safe-area-inset-top)}.chat-header{padding:15px 16px;gap:10px}.chat-heading h2{font-size:14px}.assistant-avatar{width:39px;height:39px}.chat-heading p{font-size:10px}.chat-header-actions{gap:2px}.ai-tag{display:none}.mobile-cart{display:inline-flex!important;position:relative;margin-right:5px}.mobile-cart .badge{position:absolute;right:-2px;top:-2px;font-size:8px;line-height:14px;min-width:14px}.desktop-minimize{display:none}.messages{padding:19px 14px 20px}.message{gap:7px;margin-bottom:16px}.message-avatar{width:23px;height:23px}.message-body{max-width:calc(100% - 30px)}.message.user .message-body{max-width:88%}.bubble{font-size:12px;padding:11px 12px}.product-card{padding:12px;max-width:416px}.product-image{width:73px;min-width:73px;height:94px}.product-image svg{width:73px;height:86px}.product-title{font-size:11px}.product-spec{font-size:9px}.product-main{gap:12px}.product-bottom{gap:7px;flex-wrap:wrap}.price{font-size:18px}.price span{font-size:9px}.quantity{height:32px}.quantity button{width:25px}.add-product{font-size:10px;padding:8px 10px}.composer{padding:11px 14px max(12px,env(safe-area-inset-bottom))}.quick-replies{gap:6px;margin-bottom:10px}.quick-reply{font-size:10px;padding:6px 8px}.input-wrap{padding:7px;gap:4px}.input-wrap textarea{font-size:16px;line-height:21px;height:35px;padding:6px 2px}.input-wrap textarea::placeholder{font-size:12px}.input-wrap .icon-button{height:35px}.send{width:35px;height:35px}.composer-footer{font-size:8px;margin-top:9px}.composer-footer .desktop-hint{display:none}.chat-launcher{display:none}.chat-launcher[aria-expanded=false]{display:flex}.closed-placeholder{height:100dvh;border:0;border-radius:0;min-height:0}.drawer{padding:21px}.catalog-dialog{padding:18px;width:calc(100% - 24px);max-height:90dvh}.catalog-grid{grid-template-columns:1fr}.toast{bottom:100px}.confirmation{padding:12px}.confirmation-detail{font-size:10px}.product-kicker{font-size:8px}}
     @media(max-width:370px){.product-bottom .add-product{width:100%;margin-top:4px}.product-image{width:63px;min-width:63px}.product-main{gap:8px}.chat-header{padding:12px}.composer-footer span{font-size:7px}.chat-header-actions .icon-button{width:31px}.chat-heading h2{font-size:13px}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+    /* Catalog integration UI. Chat and cart retain their separate demo state. */
+    .catalog-dialog{width:min(880px,calc(100% - 40px));height:min(840px,90dvh);max-height:90dvh}
+    .catalog-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+    .catalog-source{display:flex;align-items:center;gap:6px;color:var(--green);font-size:11px}
+    .catalog-source .icon{width:14px;height:14px}
+    .catalog-back{padding:6px 10px;font-size:11px}.catalog-back .icon{transform:rotate(180deg);width:14px;height:14px}
+    .catalog-dialog .modal-body{padding:16px 0}.catalog-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .catalog-item{display:flex;flex-direction:column;min-width:0;padding:13px}
+    .catalog-picture{height:120px;display:flex;align-items:center;justify-content:center;gap:7px;flex-direction:column;border-radius:9px;background:#f4f7f2;color:#90a38b;overflow:hidden;font-size:10px}
+    .catalog-picture .icon{width:35px;height:35px;stroke-width:1.2}.catalog-picture img{width:100%;height:100%;object-fit:contain;padding:8px}
+    .catalog-item .pill{align-self:flex-start;margin-top:12px;font-size:9px}.catalog-stock-ok{background:#eef5ed;color:#60865e}.catalog-stock-empty{background:#fbf5e8;color:#a08450}.catalog-stock-unknown{background:#f1f3f1;color:#7d887d}
+    .catalog-item h3{overflow-wrap:anywhere;line-height:1.5;margin:9px 0 5px}.catalog-sku{font-size:9px;color:#98a391;margin:0 0 10px;overflow-wrap:anywhere}
+    .catalog-item .price{font-size:17px;margin-top:auto;padding-top:10px;white-space:normal}.catalog-item .price span{display:inline;font-size:9px}.unknown-price{font-size:11px;font-weight:500;letter-spacing:0;color:#8c9589}
+    .catalog-item .secondary{margin-top:11px;gap:7px}.catalog-item .secondary .icon{width:14px;height:14px}
+    .catalog-pagination{padding:14px 0 0;border-top:1px solid var(--line)}.catalog-page-controls{display:flex;align-items:center;justify-content:space-between;gap:10px}.catalog-page-controls button{font-size:11px;padding:8px 12px}.catalog-page-controls button .icon{width:14px;height:14px}.catalog-page-controls #catalogPrev .icon{transform:rotate(180deg)}
+    .catalog-page-label{text-align:center;font-size:11px;line-height:1.6}.catalog-page-note{font-size:10px;color:#929f8c;text-align:center;margin:9px 0 0;line-height:1.5}
+    .catalog-feedback:empty{display:none}.catalog-empty,.catalog-error{text-align:center;padding:45px 22px}.catalog-feedback h3{font-size:17px;font-weight:600;margin:12px 0 8px}.catalog-feedback p{font-size:12px;color:#81917a;max-width:470px;margin:0 auto 17px;line-height:1.8}.catalog-feedback>.icon{width:34px;height:34px;color:#a5b79a}.catalog-feedback .primary{font-size:12px}.catalog-feedback .primary .icon{width:15px;height:15px}
+    .catalog-loading{display:flex;align-items:center;gap:9px;font-size:12px;color:#788a73;padding:0 1px 16px}.catalog-spinner{height:16px;width:16px;border:2px solid #dfe8da;border-top-color:var(--green);border-radius:50%;animation:catalog-spin .8s linear infinite}
+    .catalog-skeleton{min-height:236px;padding:13px;border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;gap:13px}.catalog-skeleton i{display:block;background:linear-gradient(100deg,#f0f4ed 20%,#f9fbf7 45%,#f0f4ed 70%);background-size:200% 100%;animation:catalog-shimmer 1.5s linear infinite;border-radius:6px;height:11px}.catalog-skeleton i:first-child{height:112px}.catalog-skeleton i:nth-child(2){width:78%}.catalog-skeleton i:nth-child(3){width:50%}
+    .detail-lead{display:grid;grid-template-columns:190px minmax(0,1fr);gap:24px;margin:5px 0 22px}.detail-lead .catalog-picture{height:210px}.detail-lead h3{font-size:20px;letter-spacing:-.4px;line-height:1.4;margin:12px 0 8px;overflow-wrap:anywhere}.detail-lead .price{font-size:26px;margin:17px 0 5px;white-space:normal}.detail-lead .price span{display:inline;font-size:11px}.detail-meta{font-size:11px;color:#8e9e86;overflow-wrap:anywhere}.detail-block{border-top:1px solid var(--line);padding:18px 0 4px}.detail-block h4{margin:0 0 11px;font-size:12px;font-weight:650}.detail-block p{font-size:12px;line-height:1.8;color:#70816a;white-space:pre-wrap;overflow-wrap:anywhere}.detail-specs{margin:0;font-size:12px}.detail-spec-row{display:grid;grid-template-columns:1fr 1.3fr;gap:20px;padding:10px;border-radius:6px}.detail-spec-row:nth-child(odd){background:#f6f8f3}.detail-spec-row dt{color:#8b9985}.detail-spec-row dd{margin:0;overflow-wrap:anywhere}.detail-document{display:flex;gap:9px;align-items:center;text-decoration:none;color:var(--green);border:1px solid var(--line);border-radius:8px;padding:11px 13px;margin-bottom:9px;font-size:12px}.detail-document .icon{width:17px;height:17px}.detail-document span{flex:1;overflow-wrap:anywhere}.detail-demo-note{font-size:11px;color:#7b8d73;background:#f1f6ed;border:1px solid #e1ead9;border-radius:9px;padding:13px;line-height:1.7;margin:16px 0 3px}
+    @keyframes catalog-spin{to{transform:rotate(360deg)}}@keyframes catalog-shimmer{to{background-position:-200% 0}}
+    @media(max-width:700px){.catalog-dialog{width:calc(100% - 20px);height:94dvh;max-height:94dvh;padding:17px}.catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.catalog-item{padding:10px}.catalog-picture{height:94px}.catalog-item h3{font-size:11px}.catalog-item .secondary{font-size:10px;padding:8px 5px}.catalog-item .price{font-size:15px}.catalog-page-controls button{font-size:10px;padding:8px}.catalog-page-label{font-size:10px}.catalog-toolbar .small{font-size:10px}.detail-lead{grid-template-columns:105px minmax(0,1fr);gap:15px}.detail-lead .catalog-picture{height:145px}.detail-lead h3{font-size:16px;margin-top:7px}.detail-lead .price{font-size:22px}.detail-meta{font-size:10px}.detail-spec-row{gap:12px;font-size:11px}.catalog-empty,.catalog-error{padding:34px 10px}}
+    @media(max-width:350px){.catalog-grid{grid-template-columns:1fr}.catalog-page-controls{gap:5px}.catalog-page-controls button{font-size:9px}.catalog-page-controls button .icon{display:none}}
   </style>
 </head>
 <body>
@@ -61,7 +84,7 @@
         <button class="nav-button" data-prompt="Жеткізу және төлем шарттары қандай?"><svg class="icon"><use href="#i-truck"/></svg>Жеткізу және төлем</button>
         <button class="nav-button" data-action="about"><svg class="icon"><use href="#i-info"/></svg>Кеңесші туралы</button>
       </nav>
-      <div class="sidebar-footer"><div class="demo-label"><i></i>Интерактивті демо</div><p>Ойдан алынған тауарлар мен бағалар.<br>© 2026 · ekt.kz интерфейс прототипі</p></div>
+      <div class="sidebar-footer"><div class="demo-label"><i></i>Frontend прототипі</div><p>Чат пен себет — демо режимде.<br>© 2026 · ekt.kz интерфейс прототипі</p></div>
     </aside>
     <div class="workspace">
       <header class="topbar">
@@ -76,7 +99,7 @@
             <header class="chat-header"><div class="assistant-avatar"><svg class="icon"><use href="#i-spark"/></svg></div><div class="chat-heading"><h2>ekt.kz кеңесшісі</h2><p><span>Онлайн</span> &nbsp;·&nbsp; Сіздің электр тауарлары бойынша көмекшіңіз</p></div><div class="chat-header-actions"><span class="ai-tag">ДЕМО</span><button class="icon-button mobile-cart" data-action="cart" aria-label="Себетті ашу"><svg class="icon"><use href="#i-bag"/></svg><span class="badge cart-count">0</span></button><button class="icon-button" data-action="reset" aria-label="Демо диалогын қайта бастау" title="Диалогты қайта бастау"><svg class="icon"><use href="#i-refresh"/></svg></button><button class="icon-button desktop-minimize" data-action="close-chat" aria-label="Чатты жасыру" title="Чатты жасыру"><svg class="icon"><use href="#i-minus"/></svg></button></div></header>
             <div class="messages" id="messages" role="log" aria-label="Чат хабарламалары" aria-live="polite" aria-relevant="additions"></div>
             <div class="composer">
-              <div class="quick-replies" aria-label="Жылдам сұрақтар"><button class="quick-reply" data-prompt="10 дана керек"><svg class="icon"><use href="#i-box"/></svg>10 дана керек</button><button class="quick-reply" data-prompt="ABB C16 бар ма? Аналог ұсыныңыз"><svg class="icon"><use href="#i-refresh"/></svg>Аналог табу</button><button class="quick-reply" data-prompt="Жеткізу және төлем шарттары қандай?"><svg class="icon"><use href="#i-truck"/></svg>Жеткізу туралы</button></div>
+              <div class="quick-replies" aria-label="Жылдам сұрақтар"><button class="quick-reply" data-action="catalog"><svg class="icon"><use href="#i-grid"/></svg>Каталог</button><button class="quick-reply" data-prompt="10 дана керек"><svg class="icon"><use href="#i-box"/></svg>10 дана керек</button><button class="quick-reply" data-prompt="ABB C16 бар ма? Аналог ұсыныңыз"><svg class="icon"><use href="#i-refresh"/></svg>Аналог табу</button><button class="quick-reply" data-prompt="Жеткізу және төлем шарттары қандай?"><svg class="icon"><use href="#i-truck"/></svg>Жеткізу туралы</button></div>
               <div class="attachment-hint" id="attachmentHint" hidden>PDF, Excel, Word немесе JPEG/PNG · 10 МБ дейін. Файлдың тек атауы көрсетіледі.</div>
               <form id="messageForm" class="input-wrap"><button type="button" class="icon-button" id="attachButton" aria-label="Файл тіркеу" title="PDF, Excel, Word, JPEG немесе PNG тіркеу"><svg class="icon"><use href="#i-clip"/></svg></button><label class="sr-only" for="messageInput">Хабарламаңыз</label><textarea id="messageInput" rows="1" maxlength="1000" placeholder="Қандай тауар іздеп жүрсіз?"></textarea><button type="submit" class="send" id="sendButton" aria-label="Хабарламаны жіберу"><svg class="icon"><use href="#i-send"/></svg></button></form>
               <input type="file" id="fileInput" accept=".pdf,.xlsx,.xls,.doc,.docx,.jpg,.jpeg,.png" hidden>
@@ -96,12 +119,368 @@
     <button id="chatLauncher" class="chat-launcher" data-action="toggle-chat" aria-expanded="true" aria-controls="chatWindow"><svg class="icon"><use href="#i-chat"/></svg><span>Чатты жасыру</span></button>
   </div>
   <div class="modal-overlay" id="cartOverlay" hidden><section class="drawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle" tabindex="-1"><header class="modal-header"><div><h2 id="cartTitle">Сіздің себетіңіз</h2><p>Таңдаған тауарларыңыз бір жерде</p></div><button class="icon-button" data-action="close-modal" aria-label="Себетті жабу"><svg class="icon"><use href="#i-close"/></svg></button></header><div class="modal-body" id="cartItems"></div><footer class="cart-footer"><div class="cart-total"><span>Жалпы сома</span><strong id="cartTotal">0 ₸</strong></div><button class="primary checkout" id="checkoutButton">Тапсырысты рәсімдеу<svg class="icon"><use href="#i-arrow"/></svg></button><div class="checkout-note" id="checkoutNote" role="status" hidden>Бұл — интерфейс демонстрациясы. Нақты тапсырыс рәсімделмейді және төлем алынбайды.</div><p>Демо себет · Ойдан алынған бағалар</p></footer></section></div>
-  <div class="modal-overlay" id="catalogOverlay" hidden><section class="drawer catalog-dialog" role="dialog" aria-modal="true" aria-labelledby="catalogTitle" tabindex="-1"><header class="modal-header"><div><h2 id="catalogTitle">Тауарлар каталогы</h2><p>4 үлгі тауар · Барлық дерек ойдан алынған</p></div><button class="icon-button" data-action="close-modal" aria-label="Каталогты жабу"><svg class="icon"><use href="#i-close"/></svg></button></header><div class="modal-body catalog-grid" id="catalogItems"></div></section></div>
+  <div class="modal-overlay" id="catalogOverlay" hidden>
+    <section class="drawer catalog-dialog" role="dialog" aria-modal="true" aria-labelledby="catalogTitle" tabindex="-1">
+      <header class="modal-header"><div><h2 id="catalogTitle">Тауарлар каталогы</h2><p id="catalogSubtitle">Тауарды таңдап, толық мәліметін қараңыз</p></div><button class="icon-button" data-action="close-modal" aria-label="Каталогты жабу"><svg class="icon"><use href="#i-close"/></svg></button></header>
+      <div class="catalog-toolbar"><button class="secondary catalog-back" id="catalogBack" data-action="catalog-back" hidden><svg class="icon"><use href="#i-arrow"/></svg>Каталогқа</button><span class="catalog-source" id="catalogSourceLabel"></span><span class="small muted">Чат пен себет — демо</span></div>
+      <div class="modal-body" id="catalogBody" aria-busy="false"><div id="catalogFeedback" class="catalog-feedback" role="status" aria-live="polite"></div><div class="catalog-grid" id="catalogItems"></div><div id="productDetail" hidden></div></div>
+      <footer class="catalog-pagination" id="catalogPagination"><div class="catalog-page-controls"><button class="secondary" id="catalogPrev" data-action="catalog-prev"><svg class="icon"><use href="#i-arrow"/></svg>Алдыңғы</button><span class="catalog-page-label" id="catalogPageLabel" tabindex="-1"></span><button class="secondary" id="catalogNext" data-action="catalog-next">Келесі<svg class="icon"><use href="#i-arrow"/></svg></button></div><p class="catalog-page-note" id="catalogPageNote"></p></footer>
+    </section>
+  </div>
   <div class="toast" id="toast" role="status" hidden></div>
   <script>
+/* CATALOG_DATA_START */
+(function (root) {
+  'use strict';
+
+  const DEFAULT_FIELDS = Object.freeze({
+    name: 'name', sku: 'sku', brand: 'brand', price: 'price', stock: 'stock',
+    unit: 'unit', description: 'description', specs: 'specs', image: 'image',
+    certificates: 'certificates'
+  });
+  const DEFAULT_PAGINATION = Object.freeze({ hasNext: 'has_next', totalPages: 'total_pages' });
+  const owns = (value, key) => Object.prototype.hasOwnProperty.call(value, key);
+  const isRecord = value => value !== null && typeof value === 'object' && !Array.isArray(value);
+
+  class CatalogError extends Error {
+    constructor(code, message, status) {
+      super(message);
+      this.name = 'CatalogError';
+      this.code = code;
+      if (status !== undefined) this.status = status;
+    }
+  }
+
+  function schemaError(message) {
+    return new CatalogError('SCHEMA', message);
+  }
+
+  function safeHttpUrl(value, baseUrl) {
+    if (typeof value !== 'string' || !value.trim() || /[\u0000-\u001f\u007f]/.test(value)) return null;
+    try {
+      const url = new URL(value.trim(), baseUrl || undefined);
+      if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) return null;
+      return url.href;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function resolveBaseUrl(value) {
+    const safe = safeHttpUrl(value);
+    if (!safe) throw new CatalogError('CONFIG', 'Backend адресін http:// немесе https:// түрінде көрсетіңіз.');
+    const url = new URL(safe);
+    if (url.search || url.hash || String(value).includes('?') || String(value).includes('#')) {
+      throw new CatalogError('CONFIG', 'Backend адресінде сұрау параметрлері мен # белгісі болмауы керек.');
+    }
+    return url.href.replace(/\/+$/, '') + '/';
+  }
+
+  function atPath(value, path) {
+    if (typeof path !== 'string' || !path.trim()) return undefined;
+    const keys = path.split('.');
+    for (const key of keys) {
+      if (!key || ['__proto__', 'prototype', 'constructor'].includes(key) ||
+          value === null || typeof value !== 'object' || !owns(value, key)) return undefined;
+      value = value[key];
+    }
+    return value;
+  }
+
+  function textValue(value) {
+    if (typeof value === 'string') return value.trim() || null;
+    if (typeof value === 'number' && Number.isFinite(value)) return String(value);
+    if (typeof value === 'boolean') return String(value);
+    return null;
+  }
+
+  function numberValue(value) {
+    if (typeof value === 'string') {
+      const text = value.trim();
+      if (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i.test(text)) return null;
+      value = Number(text);
+    }
+    return typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : null;
+  }
+
+  function integerValue(value) {
+    const number = numberValue(value);
+    return Number.isSafeInteger(number) ? number : null;
+  }
+
+  function productId(value, code) {
+    if ((typeof value === 'string' && value.trim()) ||
+        (typeof value === 'number' && Number.isFinite(value))) {
+      const id = String(value).trim();
+      // URL implementations normalize dot segments even when dots are percent-encoded.
+      if (id !== '.' && id !== '..') return id;
+    }
+    throw new CatalogError(code || 'SCHEMA', 'Тауардың жарамды id өрісі жоқ.');
+  }
+
+  function pageNumber(value, code) {
+    const page = integerValue(value);
+    if (page === null || page < 1) {
+      throw new CatalogError(code || 'CONFIG', 'Бет нөмірі 1-ден басталатын бүтін сан болуы керек.');
+    }
+    return page;
+  }
+
+  function normalizeSpecs(value) {
+    const pairs = Array.isArray(value)
+      ? value.filter(isRecord).map(item => [item.label ?? item.name, item.value])
+      : isRecord(value) ? Object.entries(value) : [];
+    return pairs.map(([label, content]) => ({ label: textValue(label), value: textValue(content) }))
+      .filter(item => item.label !== null && item.value !== null);
+  }
+
+  function normalizeCertificates(value, baseUrl) {
+    const entries = Array.isArray(value) ? value : value == null ? [] : [value];
+    return entries.map(item => {
+      if (typeof item === 'string') return { name: null, url: safeHttpUrl(item, baseUrl) };
+      if (!isRecord(item)) return null;
+      return { name: textValue(item.name ?? item.title), url: safeHttpUrl(item.url, baseUrl) };
+    }).filter(item => item && item.url);
+  }
+
+  function normalizeProduct(raw, config) {
+    if (!isRecord(raw)) throw schemaError('Тауар деректері объект түрінде келуі керек.');
+    config = config || {};
+    const fields = Object.assign({}, DEFAULT_FIELDS, config.fields || {});
+    const baseUrl = config.baseUrl ? resolveBaseUrl(config.baseUrl) : undefined;
+    const read = field => atPath(raw, fields[field]);
+    return {
+      id: productId(raw.id),
+      sku: textValue(read('sku')),
+      brand: textValue(read('brand')),
+      name: textValue(read('name')),
+      price: numberValue(read('price')),
+      stock: integerValue(read('stock')),
+      unit: textValue(read('unit')),
+      description: textValue(read('description')),
+      specs: normalizeSpecs(read('specs')),
+      image: safeHttpUrl(read('image'), baseUrl),
+      certificates: normalizeCertificates(read('certificates'), baseUrl)
+    };
+  }
+
+  function parsePage(payload, requestedPage, config) {
+    const page = pageNumber(requestedPage);
+    if (!isRecord(payload) || !isRecord(payload.data) || !Array.isArray(payload.data.items)) {
+      throw schemaError('Backend жауабында data.items массиві табылмады.');
+    }
+    const data = payload.data;
+    if (owns(data, 'page') && pageNumber(data.page, 'SCHEMA') !== page) {
+      throw schemaError('Backend басқа бетті қайтарды. Сұралған бет: ' + page + '.');
+    }
+    const pagination = Object.assign({}, DEFAULT_PAGINATION, config && config.pagination || {});
+    const rawNext = atPath(data, pagination.hasNext);
+    const rawTotal = atPath(data, pagination.totalPages);
+    let hasNext = null;
+    let totalPages = null;
+    if (rawNext !== undefined && rawNext !== null) {
+      if (typeof rawNext !== 'boolean') throw schemaError('Келесі бет белгісі boolean түрінде болуы керек.');
+      hasNext = rawNext;
+    }
+    if (rawTotal !== undefined && rawTotal !== null) {
+      totalPages = integerValue(rawTotal);
+      if (totalPages === null) throw schemaError('Жалпы бет саны теріс емес бүтін сан болуы керек.');
+      if (data.items.length && page > totalPages) {
+        throw schemaError('Тауарлар тізімі жалпы бет санына сәйкес емес.');
+      }
+      const expectedNext = page < totalPages;
+      if (hasNext !== null && hasNext !== expectedNext) throw schemaError('Беттер туралы мәліметтер бір-біріне сәйкес емес.');
+      hasNext = expectedNext;
+    }
+    const seen = new Set();
+    const items = [];
+    for (const raw of data.items) {
+      const item = normalizeProduct(raw, config);
+      if (!seen.has(item.id)) {
+        seen.add(item.id);
+        items.push(item);
+      }
+    }
+    return { items, page, hasNext, totalPages };
+  }
+
+  function abortError() {
+    if (typeof DOMException !== 'undefined') return new DOMException('Сұраныс тоқтатылды.', 'AbortError');
+    const error = new Error('Сұраныс тоқтатылды.');
+    error.name = 'AbortError';
+    return error;
+  }
+
+  function delay(milliseconds, signal) {
+    return new Promise((resolve, reject) => {
+      if (signal.aborted) return reject(abortError());
+      const onAbort = () => {
+        clearTimeout(timer);
+        signal.removeEventListener('abort', onAbort);
+        reject(abortError());
+      };
+      const timer = setTimeout(() => {
+        signal.removeEventListener('abort', onAbort);
+        resolve();
+      }, milliseconds);
+      signal.addEventListener('abort', onAbort, { once: true });
+    });
+  }
+
+  // Барлық демо дерек ойдан алынған. 515291 тек беттерді тексеруге арналған мысал ID.
+  const DEMO_PRODUCTS = Array.from({ length: 40 }, (_, index) => {
+    const category = index % 5;
+    const names = ['Автоматты ажыратқыш', 'Күштік кабель', 'Жарықдиодты шам', 'Розетка', 'Модульдік контактор'];
+    const details = ['C сипаттамасы, 230 В', 'Мыс өткізгіш, 3 × 2,5 мм²', '12 Вт, 4000 К', 'Жерге қосу, 16 А', '2 полюс, 25 А'];
+    const id = index === 20 ? 515291 : 910001 + index;
+    return {
+      id,
+      name: names[category] + ' DEMO-' + String(index + 1).padStart(2, '0'),
+      sku: 'DEMO-' + String(index + 1).padStart(4, '0'),
+      brand: ['Демо Электро', 'Демо Кабель', 'Демо Жарық'][index % 3],
+      price: index === 8 ? null : [1500, 480, 1200, 1750, 6800][category] + Math.floor(index / 5) * 100,
+      stock: index === 7 ? null : index % 6 === 3 ? 0 : 15 + (index * 7) % 90,
+      unit: category === 1 ? 'м' : 'дана',
+      description: details[category] + '. Интерфейсті тексеруге арналған ойдан алынған тауар.',
+      specs: { 'Үлгі': 'DEMO-' + (index + 1), 'Серия': 'Демонстрациялық', 'Сипаттама': details[category] },
+      image: null,
+      certificates: []
+    };
+  });
+
+  function createService(config) {
+    config = config || {};
+    const mode = config.mode === undefined ? 'demo' : config.mode;
+    if (!['api', 'demo'].includes(mode)) throw new CatalogError('CONFIG', 'Дерек режимі demo немесе api болуы керек.');
+    const timeoutMs = config.timeoutMs === undefined ? 10000 : config.timeoutMs;
+    if (typeof timeoutMs !== 'number' || !Number.isFinite(timeoutMs) || timeoutMs <= 0 || timeoutMs > 2147483647) {
+      throw new CatalogError('CONFIG', 'Сұраныстың күту уақытын оң санмен көрсетіңіз.');
+    }
+    const baseUrl = mode === 'api' ? resolveBaseUrl(config.baseUrl) : '';
+    const settings = {
+      baseUrl,
+      fields: Object.assign({}, DEFAULT_FIELDS, config.fields || {}),
+      pagination: Object.assign({}, DEFAULT_PAGINATION, config.pagination || {})
+    };
+    const demoScenario = mode === 'demo' ? (config.demoScenario || 'normal') : 'normal';
+    if (!['normal', 'empty', 'error', 'slow'].includes(demoScenario)) {
+      throw new CatalogError('CONFIG', 'Белгісіз демо сценарийі.');
+    }
+    let shouldFailFirstList = demoScenario === 'error';
+
+    async function request(operation, callerSignal) {
+      if (callerSignal && callerSignal.aborted) throw abortError();
+      const controller = new AbortController();
+      let terminate;
+      let termination;
+      const cancellation = new Promise((_, reject) => { terminate = reject; });
+      function stop(error) {
+        if (termination) return;
+        termination = error;
+        controller.abort(error);
+        terminate(error);
+      }
+      const onAbort = () => stop(abortError());
+      const timer = setTimeout(() => stop(new CatalogError('TIMEOUT', 'Backend жауабы күту уақытынан асты. Қайта көріңіз.')), timeoutMs);
+      if (callerSignal) {
+        callerSignal.addEventListener('abort', onAbort, { once: true });
+        if (callerSignal.aborted) onAbort();
+      }
+      try {
+        const execution = Promise.resolve().then(() => {
+          if (termination) throw termination;
+          return operation(controller.signal);
+        });
+        return await Promise.race([execution, cancellation]);
+      } catch (error) {
+        throw termination || error;
+      } finally {
+        clearTimeout(timer);
+        if (callerSignal) callerSignal.removeEventListener('abort', onAbort);
+      }
+    }
+
+    async function getJson(path, signal) {
+      let response;
+      try {
+        response = await fetch(new URL(path, baseUrl).href, {
+          method: 'GET', headers: { Accept: 'application/json' }, credentials: 'omit', signal
+        });
+      } catch (error) {
+        if (signal.aborted) throw abortError();
+        throw new CatalogError('NETWORK', 'Backend-пен байланыс орнамады. Сервер адресін, интернетті және CORS баптауын тексеріңіз.');
+      }
+      if (!response.ok) {
+        throw new CatalogError('HTTP', 'Backend сұранысты орындай алмады (HTTP ' + response.status + ').', response.status);
+      }
+      try {
+        return await response.json();
+      } catch (error) {
+        if (signal.aborted) throw abortError();
+        throw new CatalogError('INVALID_JSON', 'Backend жарамды JSON жауабын қайтармады.');
+      }
+    }
+
+    async function list(value, options) {
+      const page = pageNumber(value === undefined ? 1 : value);
+      return request(async signal => {
+        if (mode === 'api') {
+          const payload = await getJson('products?page=' + page, signal);
+          return parsePage(payload, page, settings);
+        }
+        const failThisRequest = shouldFailFirstList;
+        shouldFailFirstList = false;
+        await delay(demoScenario === 'slow' ? 1800 : 180, signal);
+        if (failThisRequest) throw new CatalogError('NETWORK', 'Демо байланыс қатесі. «Қайта көру» батырмасын басыңыз.');
+        const empty = demoScenario === 'empty';
+        const items = empty ? [] : DEMO_PRODUCTS.slice((page - 1) * 20, page * 20);
+        // Демо деректердің өрістері тұрақты; API mapping баптауы демоны өзгертпейді.
+        return parsePage({ data: { page, items, total_pages: empty ? 0 : 2 } }, page);
+      }, options && options.signal);
+    }
+
+    async function detail(value, options) {
+      const id = productId(value, 'CONFIG');
+      return request(async signal => {
+        let item;
+        if (mode === 'api') {
+          const payload = await getJson('products/' + encodeURIComponent(id), signal);
+          if (!isRecord(payload) || !isRecord(payload.data)) throw schemaError('Backend жауабында data тауар объектісі табылмады.');
+          item = normalizeProduct(payload.data, settings);
+        } else {
+          await delay(demoScenario === 'slow' ? 1800 : 180, signal);
+          const raw = DEMO_PRODUCTS.find(product => String(product.id) === id);
+          if (!raw) throw new CatalogError('HTTP', 'Демо каталогта бұл тауар табылмады.', 404);
+          item = normalizeProduct(raw);
+        }
+        if (item.id !== id) throw schemaError('Backend сұралған тауардан басқа id қайтарды.');
+        return item;
+      }, options && options.signal);
+    }
+
+    return Object.freeze({ list, detail });
+  }
+
+  root.CatalogData = Object.freeze({ createService, normalizeProduct, parsePage, safeHttpUrl });
+  if (typeof module !== 'undefined' && module.exports) module.exports = root.CatalogData;
+})(globalThis);
+
+/* CATALOG_DATA_END */
   (() => {
     'use strict';
-    // Offline UI demo: no fetch, API, AI, uploads, cookies, or persistent storage.
+    // Only the catalog uses the service below. Chat/cart remain an offline demo.
+    // These field paths are provisional; confirm them against the real backend JSON.
+    const CATALOG_CONFIG = {
+      mode: 'demo', // 'api' after the team provides Base URL and actual JSON samples.
+      baseUrl: '', // Your team's backend, e.g. https://backend.example/api (no credentials).
+      timeoutMs: 10000,
+      fields: {name:'name',sku:'sku',brand:'brand',price:'price',stock:'stock',unit:'unit',description:'description',specs:'specs',image:'image',certificates:'certificates'},
+      pagination: {hasNext:'has_next',totalPages:'total_pages'},
+      demoScenario: new URLSearchParams(location.search).get('catalogDemo') || 'normal'
+    };
+    let catalogService=null,catalogSetupError=null;
+    try { catalogService=CatalogData.createService(CATALOG_CONFIG); } catch(error) { catalogSetupError=error; }
+    const catalogState={view:'list',page:1,snapshot:null,loading:false,controller:null,version:0,lastRequest:null,selectedId:null};
     const PRODUCTS = Object.freeze([
       {id:'iek',sku:'MOCK-001',brand:'IEK',name:'IEK ВА47-29 автоматты ажыратқыш',short:'IEK ВА47-29 C16',spec:'1 полюс · 16 А · C сипаттамасы · 4,5 кА',price:1500,stock:128,unit:'дана',type:'breaker',color:'#d59c36'},
       {id:'schneider',sku:'MOCK-002',brand:'Schneider',name:'Schneider Easy9 автоматты ажыратқыш',short:'Schneider Easy9 C16',spec:'1 полюс · 16 А · C сипаттамасы · 4,5 кА',price:2200,stock:64,unit:'дана',type:'breaker',color:'#378263'},
@@ -225,10 +604,147 @@
       if(state.modal)closeModal();state.focusBeforeModal=document.activeElement;state.modal=$(selector);state.modal.hidden=false;$('#appShell').inert=true;document.body.style.overflow='hidden';state.modal.querySelector('[data-action="close-modal"]').focus();
     }
     function closeModal(){
-      if(!state.modal)return;state.modal.hidden=true;state.modal=null;$('#appShell').inert=false;document.body.style.overflow='';if(state.focusBeforeModal?.isConnected)state.focusBeforeModal.focus();
+      if(!state.modal)return;
+      if(state.modal===$('#catalogOverlay'))cancelCatalogRequest();
+      state.modal.hidden=true;state.modal=null;$('#appShell').inert=false;document.body.style.overflow='';if(state.focusBeforeModal?.isConnected)state.focusBeforeModal.focus();
+    }
+
+    // Catalog UI is isolated from the demo cart, mock product IDs and chat rules.
+    function catalogPicture(p){
+      const url=CatalogData.safeHttpUrl(p.image);
+      return url?`<div class="catalog-picture"><img src="${escapeHTML(url)}" alt="${escapeHTML(p.name||'Тауар суреті')}" loading="lazy" referrerpolicy="no-referrer"></div>`:`<div class="catalog-picture">${icon('box')}<span>Сурет берілмеген</span></div>`;
+    }
+    function catalogPrice(p){
+      return p.price===null?'<span class="unknown-price">Бағасы көрсетілмеген</span>':`${money(p.price)}${p.unit?`<span> / ${escapeHTML(p.unit)}</span>`:''}`;
+    }
+    function catalogStock(p){
+      if(p.stock===null)return '<span class="pill catalog-stock-unknown">Қалдық туралы дерек жоқ</span>';
+      if(p.stock===0)return '<span class="pill catalog-stock-empty">Қоймада жоқ</span>';
+      return `<span class="pill catalog-stock-ok">${p.stock} ${escapeHTML(p.unit||'бірлік')} қолда бар</span>`;
+    }
+    function cancelCatalogRequest(){
+      catalogState.version++;
+      if(catalogState.controller)catalogState.controller.abort();
+      catalogState.controller=null;catalogState.loading=false;
+      $('#catalogBody').setAttribute('aria-busy','false');
+    }
+    function startCatalogRequest(request){
+      cancelCatalogRequest();catalogState.loading=true;catalogState.lastRequest=request;
+      catalogState.controller=new AbortController();
+      $('#catalogBody').setAttribute('aria-busy','true');
+      return {version:catalogState.version,signal:catalogState.controller.signal};
+    }
+    function isCurrentCatalogRequest(request){
+      return request.version===catalogState.version && state.modal===$('#catalogOverlay') && !$('#catalogOverlay').hidden;
+    }
+    function setCatalogView(view){
+      catalogState.view=view;
+      $('#catalogTitle').textContent=view==='detail'?'Тауар туралы':'Тауарлар каталогы';
+      $('#catalogSubtitle').textContent=CATALOG_CONFIG.mode==='demo'?'Үлгі тауарлар · Барлық дерек ойдан алынған':'Каталог деректері команда серверінен алынады';
+      $('#catalogSourceLabel').innerHTML=icon(CATALOG_CONFIG.mode==='demo'?'info':'box')+(CATALOG_CONFIG.mode==='demo'?'Демо каталог':'Backend каталогы');
+      $('#catalogBack').hidden=view!=='detail';
+      $('#catalogPagination').hidden=view!=='list';
+      $('#catalogItems').hidden=view!=='list';
+      $('#productDetail').hidden=view!=='detail';
+      $('#catalogBody').scrollTop=0;
+    }
+    function updateCatalogPagination(){
+      const page=catalogState.page,data=catalogState.snapshot;
+      $('#catalogPrev').disabled=catalogState.loading||page<=1;
+      $('#catalogNext').disabled=catalogState.loading||!data||data.hasNext===false;
+      $('#catalogPageLabel').textContent=catalogState.loading?`${page}-бет жүктелуде…`:data?`${page}${data.totalPages>0?' / '+data.totalPages:''}-бет · ${data.items.length} тауар`:`${page}-бет`;
+      $('#catalogPageNote').textContent=data?.totalPages===0?'Каталог бос':data?.hasNext===null?'Беттердің жалпы саны берілмеген. Келесі бетті бөлек тексеруге болады.':data?.hasNext===false?'Соңғы бет':CATALOG_CONFIG.mode==='demo'?'Демо деректер нақты каталогты сипаттамайды.':'';
+    }
+    function showCatalogLoading(kind){
+      $('#catalogFeedback').className='catalog-feedback';
+      $('#catalogFeedback').innerHTML=`<div class="catalog-loading"><span class="catalog-spinner" aria-hidden="true"></span>${kind==='detail'?'Тауар мәліметі жүктелуде…':'Тауарлар жүктелуде…'}</div>`;
+      $('#productDetail').innerHTML='';
+      $('#catalogItems').innerHTML=kind==='list'?Array.from({length:6},()=>'<div class="catalog-skeleton" aria-hidden="true"><i></i><i></i><i></i><i></i></div>').join(''):'';
+      updateCatalogPagination();
+    }
+    function catalogErrorMessage(error){
+      if(error?.code==='CONFIG')return 'Каталог қызметі әлі бапталмаған. Сервер адресі мен қосылу параметрлері қажет.';
+      if(error?.code==='TIMEOUT')return 'Сервер жауабы тым ұзақ күтілді. Қайта көріңіз.';
+      if(error?.code==='NETWORK')return 'Серверге қосылу мүмкін болмады. Интернет қосылымын тексеріп, қайта көріңіз.';
+      if(error?.code==='INVALID_JSON'||error?.code==='SCHEMA')return 'Каталог деректері күтілген пішімде келмеді. Қызмет баптауларын тексеру қажет.';
+      if(error?.status===404)return catalogState.view==='detail'?'Бұл тауар табылмады. Каталогтан басқа тауарды таңдаңыз.':'Каталог қызметі табылмады. Қосылу адресін тексеру қажет.';
+      if(error?.status===401||error?.status===403)return 'Каталогты ашуға рұқсат қажет. Сервердің қолжетімділігін нақтылау керек.';
+      return 'Мәліметті жүктеу кезінде қате шықты. Қайта көріңіз.';
+    }
+    function showCatalogError(error){
+      $('#catalogItems').innerHTML='';$('#productDetail').innerHTML='';
+      $('#catalogFeedback').className='catalog-feedback catalog-error';
+      $('#catalogFeedback').innerHTML=`${icon('info')}<h3>Жүктеу мүмкін болмады</h3><p>${escapeHTML(catalogErrorMessage(error))}</p><button class="primary" data-action="catalog-retry">${icon('refresh')}Қайта көру</button>`;
+      updateCatalogPagination();
+    }
+    function renderCatalogList(){
+      setCatalogView('list');const data=catalogState.snapshot;
+      if(!data)return;
+      $('#productDetail').innerHTML='';
+      if(!data.items.length){
+        $('#catalogItems').innerHTML='';$('#catalogFeedback').className='catalog-feedback catalog-empty';
+        $('#catalogFeedback').innerHTML=`${icon('box')}<h3>Бұл бетте тауар жоқ</h3><p>${catalogState.page>1?'Алдыңғы бетке оралып, басқа тауарларды қарап көріңіз.':'Каталог әзірге бос. Кейінірек қайта жүктеп көріңіз.'}</p><button class="secondary" data-action="catalog-retry">${icon('refresh')}Қайта жүктеу</button>`;
+      }else{
+        $('#catalogFeedback').className='catalog-feedback';
+        $('#catalogFeedback').innerHTML=`<span class="sr-only">${data.items.length} тауар жүктелді</span>`;
+        $('#catalogItems').innerHTML=data.items.map(p=>`<article class="catalog-item">${catalogPicture(p)}${catalogStock(p)}<h3>${escapeHTML(p.name||'Атауы көрсетілмеген')}</h3><div class="catalog-sku">${p.sku?'Артикул: '+escapeHTML(p.sku):'Артикул берілмеген'}<br>ID: ${escapeHTML(p.id)}</div><div class="price">${catalogPrice(p)}</div><button class="secondary" data-catalog-detail="${escapeHTML(p.id)}" aria-label="${escapeHTML(p.name||'Тауар')}: толық мәлімет">Толығырақ${icon('arrow')}</button></article>`).join('');
+      }
+      updateCatalogPagination();
+    }
+    async function loadCatalogPage(page,focus=false){
+      if(!Number.isSafeInteger(page)||page<1)return;
+      catalogState.page=page;catalogState.snapshot=null;catalogState.selectedId=null;
+      setCatalogView('list');const request=startCatalogRequest({kind:'list',page});showCatalogLoading('list');
+      try{
+        if(catalogSetupError)throw catalogSetupError;
+        const data=await catalogService.list(page,{signal:request.signal});
+        if(!isCurrentCatalogRequest(request))return;
+        catalogState.snapshot=data;catalogState.page=data.page;catalogState.loading=false;renderCatalogList();
+        if(focus)focusCatalogNavigation();
+      }catch(error){
+        if(!isCurrentCatalogRequest(request)||error?.name==='AbortError')return;
+        catalogState.loading=false;showCatalogError(error);
+      }finally{
+        if(request.version===catalogState.version){catalogState.loading=false;catalogState.controller=null;$('#catalogBody').setAttribute('aria-busy','false');updateCatalogPagination();}
+      }
+    }
+    function renderCatalogDetail(p){
+      $('#catalogFeedback').className='catalog-feedback';
+      $('#catalogFeedback').innerHTML='<span class="sr-only">Тауар мәліметі жүктелді</span>';
+      const specs=p.specs.length?`<dl class="detail-specs">${p.specs.map(s=>`<div class="detail-spec-row"><dt>${escapeHTML(s.label)}</dt><dd>${escapeHTML(s.value)}</dd></div>`).join('')}</dl>`:'<p>Техникалық сипаттамалар берілмеген.</p>';
+      const documents=p.certificates.length?p.certificates.map(cert=>`<a class="detail-document" href="${escapeHTML(cert.url)}" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">${icon('file')}<span>${escapeHTML(cert.name||'Сертификат')}</span>${icon('arrow')}</a>`).join(''):'<p>Сертификат сілтемелері берілмеген.</p>';
+      $('#productDetail').innerHTML=`<div class="detail-lead">${catalogPicture(p)}<div>${catalogStock(p)}<h3>${escapeHTML(p.name||'Атауы көрсетілмеген')}</h3><div class="detail-meta">ID: ${escapeHTML(p.id)}${p.sku?'<br>Артикул: '+escapeHTML(p.sku):''}${p.brand?'<br>Өндіруші: '+escapeHTML(p.brand):''}</div><div class="price">${catalogPrice(p)}</div></div></div><section class="detail-block"><h4>Тауар сипаттамасы</h4><p>${escapeHTML(p.description||'Сипаттама берілмеген.')}</p></section><section class="detail-block"><h4>Техникалық сипаттамалар</h4>${specs}</section><section class="detail-block"><h4>Сертификаттар</h4>${documents}</section><div class="detail-demo-note">${icon('info')} Чат пен себет әзірге демо режимде. Бұл беттен нақты тапсырыс берілмейді.</div>`;
+    }
+    async function loadCatalogDetail(id){
+      catalogState.selectedId=String(id);setCatalogView('detail');
+      const request=startCatalogRequest({kind:'detail',id:String(id)});showCatalogLoading('detail');$('#catalogBack').focus();
+      try{
+        if(catalogSetupError)throw catalogSetupError;
+        const p=await catalogService.detail(id,{signal:request.signal});
+        if(!isCurrentCatalogRequest(request))return;
+        catalogState.loading=false;renderCatalogDetail(p);
+      }catch(error){
+        if(!isCurrentCatalogRequest(request)||error?.name==='AbortError')return;
+        catalogState.loading=false;showCatalogError(error);
+      }finally{
+        if(request.version===catalogState.version){catalogState.loading=false;catalogState.controller=null;$('#catalogBody').setAttribute('aria-busy','false');}
+      }
+    }
+    function retryCatalog(){
+      const previous=catalogState.lastRequest;if(!previous||catalogState.loading)return;
+      if(previous.kind==='detail')void loadCatalogDetail(previous.id);else void loadCatalogPage(previous.page);
+    }
+    function focusCatalogNavigation(){
+      const next=$('#catalogNext'),previous=$('#catalogPrev');
+      if(!next.disabled)next.focus();else if(!previous.disabled)previous.focus();else $('#catalogOverlay').querySelector('[data-action="close-modal"]').focus();
+    }
+    function backToCatalog(){
+      cancelCatalogRequest();catalogState.selectedId=null;
+      if(catalogState.snapshot){catalogState.lastRequest={kind:'list',page:catalogState.page};renderCatalogList();focusCatalogNavigation();}
+      else void loadCatalogPage(catalogState.page,true);
     }
     function showCatalog(){
-      $('#catalogItems').innerHTML=PRODUCTS.map(p=>`<div class="catalog-item"><div class="product-image">${illustration(p)}</div><span class="pill" style="background:${p.stock?'#eef5ed':'#fbf5e8'};color:${p.stock?'#60865e':'#a08450'}">${p.stock?`${p.stock} ${p.unit} қоймада`:'Қоймада жоқ'}</span><h3>${p.short}</h3><p>${p.spec}</p><div class="price">${money(p.price)}<span>/ ${p.unit}</span></div><button class="secondary" data-catalog-product="${p.id}">${p.stock?'Кеңесшіден сұрау':'Аналогын табу'}${icon('arrow')}</button></div>`).join('');openModal('#catalogOverlay');
+      openModal('#catalogOverlay');void loadCatalogPage(1);
     }
     function seed(){
       clearTimeout(state.replyTimer);state.busy=false;$('#sendButton').disabled=false;state.pending=null;state.cards.clear();state.lastProduct='iek';$('#messages').innerHTML='<div class="day-divider">Бүгін · Демо диалог</div>';
@@ -245,16 +761,20 @@
       if(target.dataset.confirm){confirm(target.dataset.confirm);return;}
       if(target.dataset.reject){reject(target.dataset.reject);return;}
       if(target.dataset.remove){const p=product(target.dataset.remove);state.cart.delete(p.id);renderCart();showToast('Тауар себеттен алынды');const focusTarget=$('#cartItems button')||$('#cartOverlay [data-action="close-modal"]');focusTarget.focus();return;}
-      if(target.dataset.catalogProduct){const p=product(target.dataset.catalogProduct);closeModal();send(p.id==='abb'?'ABB C16 аналогын ұсыныңыз':p.short+' туралы айтып беріңіз');return;}
+      if(target.dataset.catalogDetail){void loadCatalogDetail(target.dataset.catalogDetail);return;}
       switch(target.dataset.action){
         case 'open-chat':openChat();$('#messageInput').focus();break;
         case 'close-chat':closeChat();break;
         case 'toggle-chat':$('#chatWindow').hidden?openChat():closeChat();break;
         case 'cart':renderCart();openModal('#cartOverlay');break;
         case 'catalog':showCatalog();break;
+        case 'catalog-prev':if(!catalogState.loading&&catalogState.page>1)void loadCatalogPage(catalogState.page-1,true);break;
+        case 'catalog-next':if(!catalogState.loading&&catalogState.snapshot&&catalogState.snapshot.hasNext!==false)void loadCatalogPage(catalogState.page+1,true);break;
+        case 'catalog-retry':retryCatalog();break;
+        case 'catalog-back':backToCatalog();break;
         case 'close-modal':closeModal();break;
         case 'quantity-demo':send('IEK C16 автоматтан 10 дана керек');break;
-        case 'about':openChat();say('Мен — ekt.kz үшін жасалған интерфейс прототипімін. Дайын сценарийлермен тауар көрсетемін, аналог ұсынамын және тек растаудан кейін демо себетке қосамын. Нақты API мен ЖИ қосылмаған. Деректер парақша жабылғанша ғана сақталады.');break;
+        case 'about':openChat();say('Мен — ekt.kz үшін жасалған интерфейс прототипімін. Чат дайын сценарийлермен жұмыс істейді, себетке тек растаудан кейін демо тауар қосылады. Каталогты бөлек ашып, тауарлардың толық мәліметін қарай аласыз. ЖИ мен нақты тапсырыс әзірге қосылмаған.');break;
         case 'reset':seed();showToast('Диалог қайта басталды. Себет сақталды.');break;
       }
     });
@@ -276,6 +796,7 @@
       event.target.value='';$('#attachmentHint').hidden=true;
     });
     $('#checkoutButton').addEventListener('click',()=>{$('#checkoutNote').hidden=false;});
+    $('#catalogBody').addEventListener('error',event=>{if(event.target.tagName==='IMG'&&event.target.closest('.catalog-picture'))event.target.parentElement.innerHTML=icon('box')+'<span>Сурет жүктелмеді</span>';},true);
     document.querySelectorAll('.modal-overlay').forEach(overlay=>overlay.addEventListener('click',event=>{if(event.target===overlay)closeModal();}));
     document.addEventListener('keydown',event=>{
       if(!state.modal)return;
@@ -283,7 +804,9 @@
       if(event.key==='Tab'){
         const focusables=[...state.modal.querySelectorAll('button:not(:disabled),[href],input,textarea,[tabindex="0"]')].filter(el=>el.getClientRects().length);
         const first=focusables[0],last=focusables[focusables.length-1];
-        if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+        if(!first){event.preventDefault();state.modal.querySelector('[role="dialog"]').focus();}
+        else if(!focusables.includes(document.activeElement)){event.preventDefault();(event.shiftKey?last:first).focus();}
+        else if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
         else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
       }
     });
