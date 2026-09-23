@@ -5,7 +5,7 @@ import { recognize } from '../src/nlu.js';
 import { buildMessages } from '../src/prompts.js';
 
 const cable = { id: 515291, name: 'Кабель А', category: 'Кабель', price: 1500, currency: 'KZT', stock: 20, attributes: { voltage: '220 В' }, certificate_url: null };
-const other = { id: 515292, name: 'Кабель Б', category: 'Кабель', price: 1200, currency: 'KZT', attributes: { voltage: '220 В' } };
+const other = { id: 515292, name: 'Кабель Б', category: 'Кабель', price: 1200, currency: 'KZT', stock: 20, attributes: { voltage: '220 В' } };
 function session() {
   let state = createSession(); let last;
   return {
@@ -45,7 +45,7 @@ test('pronoun resolves a single known product', () => {
 test('multiple products require selection, retain quantity', () => {
   const s = session().seed([cable, other]);
   assert.match(s.user('одан 5 дана қос').reply.message, /Қай тауар/);
-  s.user('артикул 515292'); assert.equal(s.state.pending.product_id, other.id); assert.equal(s.state.pending.quantity, 5);
+  s.user('id 515292'); assert.equal(s.state.pending.product_id, other.id); assert.equal(s.state.pending.quantity, 5);
 });
 test('missing certificate and attribute are never invented', () => {
   const s = session().seed(); s.user('сертификат бар ма');

@@ -3,6 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "scripts": { "test": "node --test", "demo": "node examples/dialogue.js" },
-  "engines": { "node": ">=20" }
+  "scripts": {
+    "test": "node --test tests/dialogue.test.js tests/must-have.test.js tests/bridge.test.js tests/catalog.test.cjs tests/frontend.test.cjs",
+    "test:e2e": "playwright test",
+    "demo": "node examples/dialogue.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
 }

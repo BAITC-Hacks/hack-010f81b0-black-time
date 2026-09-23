@@ -49,6 +49,8 @@
               "string",
               "number",
               "boolean",
+              "array",
+              "object",
               "null"
             ]
           }
@@ -79,6 +81,11 @@
             "null"
           ]
         },
+        "image": { "type": ["string", "null"] },
+        "url": { "type": ["string", "null"] },
+        "warnings": { "type": "array", "items": { "type": "string" } },
+        "minimum_order": { "type": ["number", "null"], "exclusiveMinimum": 0 },
+        "order_multiple": { "type": ["number", "null"], "exclusiveMinimum": 0 },
         "sku": {
           "type": [
             "string",
@@ -149,6 +156,7 @@
         "action_result"
       ],
       "properties": {
+        "message": { "type": "string", "maxLength": 4000 },
         "type": {
           "const": "server"
         },
@@ -501,8 +509,9 @@
         "quantity"
       ],
       "properties": {
+        "id": { "type": ["integer", "string", "null"] },
         "warehouse_id": {
-          "type": "string",
+          "type": ["string", "null"],
           "minLength": 1
         },
         "name": {
@@ -526,11 +535,11 @@
       "properties": {
         "cart_url": {
           "type": "string",
-          "pattern": "^https://[^\\s]+$"
+          "pattern": "^(?:https://[^\\s\\\\]+|/cart(?:[?#][^\\s\\\\]*)?)$"
         },
         "checkout_url": {
           "type": "string",
-          "pattern": "^https://[^\\s]+$"
+          "pattern": "^(?:https://[^\\s\\\\]+|/cart(?:[?#][^\\s\\\\]*)?)$"
         }
       }
     },

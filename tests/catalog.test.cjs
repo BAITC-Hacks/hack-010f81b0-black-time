@@ -4,8 +4,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
-const source = html.split('/* CATALOG_DATA_START */')[1].split('/* CATALOG_DATA_END */')[0];
+const source = fs.readFileSync(path.join(__dirname, '..', 'frontend/catalog.js'), 'utf8');
 const testedModule = { exports: {} };
 new Function('module', source)(testedModule);
 const { createService, normalizeProduct, parsePage, safeHttpUrl } = testedModule.exports;
@@ -28,23 +27,32 @@ async function withFetch(mock, operation) {
 test('missing optional product values stay null without invented product information', () => {
   assert.deepEqual(normalizeProduct({ id: 515291 }), {
     id: '515291', sku: null, brand: null, name: null, price: null, stock: null,
-    unit: null, description: null, specs: [], image: null, certificates: []
+    unit: null, description: null, specs: [], image: null, certificates: [], stores: [], minimum_order: null
   });
 });
 
 test('field mapping supports nested paths, zero prices/stocks and literal untrusted text', () => {
   const product = normalizeProduct({
-    id: ' part/1 ', title: '<img src=x onerror=alert(1)>', ref: 'SKU-OTHER',
+    id: ' 515291 ', title: '<img src=x onerror=alert(1)>', ref: 'SKU-OTHER',
     money: { value: '0' }, warehouses: { sum: '12' },
     dimensions: [{ label: 'Полюс саны', value: 2 }, { name: 'Түсі', value: 'Ақ' }]
   }, { fields: { name: 'title', sku: 'ref', price: 'money.value', stock: 'warehouses.sum', specs: 'dimensions' } });
-  assert.equal(product.id, 'part/1');
+  assert.equal(product.id, '515291');
   assert.equal(product.name, '<img src=x onerror=alert(1)>');
   assert.equal(product.sku, 'SKU-OTHER');
   assert.equal(product.price, 0);
   assert.equal(product.stock, 12);
   assert.deepEqual(product.specs, [{ label: 'Полюс саны', value: '2' }, { label: 'Түсі', value: 'Ақ' }]);
   assert.equal(normalizeProduct({ id: 1, stock: 0 }).stock, 0);
+});
+
+test('actual warehouse quantities, minimum order and certificate URL are preserved without defaults', () => {
+  const item=normalizeProduct({id:515291,article:'200300285_',properties:{KRATNOST_MIN:'6'},stores:[{id:13,name:'Алматы',quantity:0},{id:14,name:'Қойма',quantity:null},{name:'<img>',quantity:5}],certificate_url:'https://ekt.kz/cert.pdf'});
+  assert.equal(item.minimum_order,6);assert.equal(item.sku,'200300285_');
+  assert.deepEqual(item.stores,[{id:'13',name:'Алматы',quantity:0},{id:'14',name:'Қойма',quantity:null},{id:null,name:'<img>',quantity:5}]);
+  assert.deepEqual(item.certificates,[{name:null,url:'https://ekt.kz/cert.pdf'}]);
+  assert.equal(normalizeProduct({id:1,certificate_url:'javascript:alert(1)',properties:{KRATNOST_MIN:'unknown'}}).certificates.length,0);
+  assert.equal(normalizeProduct({id:1,properties:{KRATNOST_MIN:'unknown'}}).minimum_order,null);
 });
 
 test('invalid numeric values never become valid prices or stock', () => {
@@ -54,15 +62,14 @@ test('invalid numeric values never become valid prices or stock', () => {
     assert.equal(result.stock, null, 'stock: ' + String(value));
   }
   assert.equal(normalizeProduct({ id: 1, price: '15.50', stock: '15.50' }).price, 15.5);
-  assert.equal(normalizeProduct({ id: 1, price: '15.50', stock: '15.50' }).stock, null);
-  assert.equal(normalizeProduct({ id: 1, stock: Number.MAX_SAFE_INTEGER + 1 }).stock, null);
+  assert.equal(normalizeProduct({ id: 1, price: '15.50', stock: '15.50' }).stock, 15.5);
 });
 
 test('missing, empty and non-scalar IDs are schema errors; SKU cannot substitute for ID', () => {
-  for (const id of [undefined, null, '', ' ', {}, [], true, NaN, Infinity]) {
+  for (const id of [undefined, null, '', ' ', {}, [], true, NaN, Infinity, 0, -1, 'part/1', '1?x=1', '1.2', Number.MAX_SAFE_INTEGER+1]) {
     assert.throws(() => normalizeProduct({ id, sku: '515291' }), hasCode('SCHEMA'));
   }
-  assert.equal(normalizeProduct({ id: 0 }).id, '0');
+  assert.equal(normalizeProduct({ id: '001' }).id, '1');
   assert.throws(() => normalizeProduct([]), hasCode('SCHEMA'));
 });
 
@@ -100,7 +107,7 @@ test('short/empty pages do not imply pagination; duplicate IDs are removed', () 
   assert.equal(page.items[0].name, 'Бірінші');
   assert.equal(page.hasNext, null);
   assert.equal(page.totalPages, null);
-  assert.equal(parsePage({ data: { items: [] } }, 2).hasNext, null);
+  assert.equal(parsePage({ data: { items: [] } }, 2).hasNext, false);
 });
 
 test('mapped pagination metadata and page index are validated', () => {
@@ -137,7 +144,7 @@ test('API configuration rejects absent, unsafe and credential-bearing URLs synch
   assert.doesNotThrow(() => createService({ mode: 'demo', baseUrl: '' }));
 });
 
-test('API list uses GET /products?page=N, JSON Accept and no browser credentials', async () => {
+test('API list uses GET /products?page=N and same-origin session credentials', async () => {
   const calls = [];
   await withFetch(async (url, options) => {
     calls.push({ url, options });
@@ -147,17 +154,17 @@ test('API list uses GET /products?page=N, JSON Accept and no browser credentials
     assert.equal(result.items[0].id, '515291');
     assert.equal(calls[0].url, 'https://backend.example/api/products?page=2');
     assert.equal(calls[0].options.method, 'GET');
-    assert.equal(calls[0].options.credentials, 'omit');
+    assert.equal(calls[0].options.credentials, 'same-origin');
     assert.deepEqual(calls[0].options.headers, { Accept: 'application/json' });
     assert.ok(calls[0].options.signal instanceof AbortSignal);
   });
 });
 
-test('API detail URL encodes the ID and rejects mismatched IDs or wrong envelope', async () => {
+test('API detail uses positive numeric ID and rejects mismatches or wrong envelopes', async () => {
   await withFetch(async url => {
-    assert.equal(url, 'https://backend.example/api/products/part%2F1%3Fx%3D1');
-    return response({ data: { id: 'part/1?x=1', sku: 'different-sku', name: 'Тауар' } });
-  }, async () => assert.equal((await createService(API_CONFIG).detail('part/1?x=1')).id, 'part/1?x=1'));
+    assert.equal(url, 'https://backend.example/api/products/515291');
+    return response({ data: { id: 515291, sku: 'different-sku', name: 'Тауар' } });
+  }, async () => assert.equal((await createService(API_CONFIG).detail('515291')).id, '515291'));
   await withFetch(async () => response({ data: { id: 2 } }), async () => {
     await assert.rejects(createService(API_CONFIG).detail(1), hasCode('SCHEMA'));
   });
@@ -259,18 +266,18 @@ test('demo has two independent pages of 20 products and matching detail fixture'
 });
 
 test('demo error fails the first list once; retry returns products', async () => {
-  const service = createService({ demoScenario: 'error' });
+  const service = createService({ mode:'demo', demoScenario: 'error' });
   await assert.rejects(service.list(1), hasCode('NETWORK'));
   assert.equal((await service.list(1)).items.length, 20);
 });
 
 test('empty and slow demo scenarios are visible, cancellable and make no API requests', async () => {
   await withFetch(async () => { throw new Error('demo must not fetch'); }, async () => {
-    assert.deepEqual(await createService({ demoScenario: 'empty' }).list(1), { items: [], page: 1, hasNext: false, totalPages: 0 });
+    assert.deepEqual(await createService({ mode:'demo', demoScenario: 'empty' }).list(1), { items: [], page: 1, hasNext: false, totalPages: 0 });
     const controller = new AbortController();
-    const pending = createService({ demoScenario: 'slow' }).list(1, { signal: controller.signal });
+    const pending = createService({ mode:'demo', demoScenario: 'slow' }).list(1, { signal: controller.signal });
     controller.abort();
     await assert.rejects(pending, { name: 'AbortError' });
-    await assert.rejects(createService({ demoScenario: 'slow', timeoutMs: 15 }).list(1), hasCode('TIMEOUT'));
+    await assert.rejects(createService({ mode:'demo', demoScenario: 'slow', timeoutMs: 15 }).list(1), hasCode('TIMEOUT'));
   });
 });

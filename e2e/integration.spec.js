@@ -1,0 +1,36 @@
+import { test, expect } from '@playwright/test';
+
+test('live catalog → dialogue → explicit consent → own prototype cart', async ({ page, request }, testInfo) => {
+  test.skip(process.env.LIVE_EKT !== '1', 'Set LIVE_EKT=1 only with the local configured EKT backend running.');
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.goto('/');
+  await expect(page.locator('#connectionStatus')).toHaveText('Қосылды');
+  await expect(page.locator('#messages')).toContainText('Тестілік себет');
+  await page.locator('#messageInput').fill('id 515291');
+  await page.locator('#sendButton').click();
+  await expect(page.locator('#messages .product-title').last()).toContainText('Legrand');
+  await expect(page.locator('#sendButton')).toBeEnabled();
+  await page.screenshot({path: `artifacts/${testInfo.project.name}-chat.png`, fullPage: true});
+  await page.locator('#messageInput').fill('1 дана керек');
+  await page.locator('#sendButton').click();
+  await expect(page.locator('[data-confirm]').last()).toBeVisible();
+  const before = await page.request.get('/api/cart');
+  expect((await before.json()).items).toHaveLength(0);
+  await page.locator('[data-confirm]').last().click();
+  await expect(page.locator('#messages')).toContainText('Тауар тестілік себетке қосылды');
+  await expect(page.locator('#sendButton')).toBeEnabled();
+  const after = await page.request.get('/api/cart');
+  const cart = await after.json();
+  expect(cart.mode).toBe('prototype');
+  expect(cart.items).toHaveLength(1);
+  expect(cart.items[0].product.id).toBe(515291);
+  expect(cart.items[0].quantity).toBe(1);
+  await page.goto('/cart');
+  await expect(page.locator('#cartOverlay')).toBeVisible();
+  await expect(page.locator('#cartItems')).toContainText('Legrand');
+  await page.screenshot({path: `artifacts/${testInfo.project.name}-cart.png`, fullPage: true});
+  expect(errors).toEqual([]);
+  const pageWidth = await page.evaluate(() => ({width: document.documentElement.scrollWidth, viewport: window.innerWidth}));
+  expect(pageWidth.width).toBeLessThanOrEqual(pageWidth.viewport + 1);
+});
